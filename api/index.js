@@ -8,7 +8,7 @@ fetch("https://restcountries.eu/rest/v2/all")
     await r.forEach((el) => {
       let country = {
         id: el.alpha3Code,
-        name: el.name,
+        name: el.name.toLowerCase(),
         flag: el.flag,
         continent: el.region,
         capital: el.capital,
