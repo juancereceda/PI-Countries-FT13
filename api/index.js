@@ -9,6 +9,7 @@ fetch("https://restcountries.eu/rest/v2/all")
       let country = {
         id: el.alpha3Code,
         name: el.name.toLowerCase(),
+        nativename: el.nativeName,
         flag: el.flag,
         continent: el.region,
         capital: el.capital,
@@ -18,7 +19,8 @@ fetch("https://restcountries.eu/rest/v2/all")
       };
       Country.create(country);
     });
-  });
+  })
+  .catch((err) => console.log(err));
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
