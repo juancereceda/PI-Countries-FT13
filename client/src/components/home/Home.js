@@ -1,75 +1,79 @@
 import React, { useEffect, useState } from "react";
 import { getActivities, getCountries } from "../../actions/actions";
-import { connect } from "react-redux";
-import { capitalize } from "./functions";
+import { useDispatch, useSelector } from "react-redux";
+import Countries from "./Countries";
+import Pagination from "./Pagination";
 
-export function Home(props) {
-  const [state, setState] = useState({
-    name: null,
-    continent: null,
-    order: null,
-    asc: true,
-    activity: null,
-  });
+export function Home() {
+  const [name, setName] = useState(null);
+  const [continent, setContinent] = useState(null);
+  const [order, setOrder] = useState(null);
+  const [asc, setAsc] = useState(true);
+  const [activity, setActivity] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [countriesPerPage] = useState(10);
+
+  const dispatch = useDispatch();
+
+  const countries = useSelector((state) => state.countries);
+  const activities = useSelector((state) => state.activities);
 
   useEffect(() => {
-    props.getCountries(state.name, state.continent, state.activity);
-    props.getActivities();
-    console.log(state.activity);
-  }, [state]);
+    setLoading(true);
+    dispatch(getCountries(name, continent, activity));
+    dispatch(getActivities());
+    setLoading(false);
+  }, [name, continent, activity]);
+
+  const indexOfLastCountry = currentPage * countriesPerPage;
+  const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;
+  const currentCountries = sorted(countries).slice(
+    indexOfFirstCountry,
+    indexOfLastCountry
+  );
 
   function handleNameChange(event) {
     let name = event.target.value;
-    setState({
-      ...state,
-      name: name === "" ? null : name,
-    });
+    setName(name);
   }
   function handleContinentChange(event) {
-    let continent = event.target.value;
-    setState({
-      ...state,
-      continent: continent === "Continent" ? null : continent,
-    });
+    let cont = event.target.value;
+    setContinent(cont === "Continent" ? null : cont);
   }
 
   function handleActivityChange(event) {
     let act = event.target.value;
-    setState({
-      ...state,
-      activity: act === "Activity" ? null : act,
-    });
+    setActivity(act === "Activity" ? null : act);
   }
 
   function handleSortChange(event) {
     let sort = event.target.value;
-    setState({
-      ...state,
-      order: sort === "None" ? null : sort,
-    });
+    setOrder(sort === "None" ? null : sort);
   }
 
   function handleOrdChange(event) {
-    setState({
-      ...state,
-      asc: event.target.value === "true" ? true : false,
-    });
+    setAsc(event.target.value === "true" ? true : false);
   }
 
   function sorted(array) {
-    if (state.order) {
-      let order = state.order.toLowerCase();
+    if (order) {
+      let ord = order.toLowerCase();
       return array.sort(function (a, b) {
-        if (a[order] > b[order]) {
-          return state.asc ? 1 : -1;
+        if (a[ord] > b[ord]) {
+          return asc ? 1 : -1;
         }
-        if (a[order] < b[order]) {
-          return state.asc ? -1 : 1;
+        if (a[ord] < b[ord]) {
+          return asc ? -1 : 1;
         }
         return 0;
       });
     }
     return array;
+  }
+
+  function renderPage(pageNumber) {
+    setCurrentPage(pageNumber);
   }
 
   return (
@@ -78,7 +82,7 @@ export function Home(props) {
         <input
           placeholder="Search..."
           autoComplete="off"
-          value={state.name}
+          value={name}
           type="text"
           onChange={(e) => handleNameChange(e)}
         ></input>
@@ -93,8 +97,8 @@ export function Home(props) {
         </select>
         <select onChange={(e) => handleActivityChange(e)}>
           <option>Activity</option>
-          {props.activities
-            ? props.activities.map((el) => {
+          {activities
+            ? activities.map((el) => {
                 return <option>{el.name}</option>;
               })
             : ""}
@@ -120,38 +124,13 @@ export function Home(props) {
         </div>
         <button>Search</button>
       </form>
-      {sorted(props.countries).length < 1 ? (
-        <h1>No countries found</h1>
-      ) : (
-        sorted(props.countries).map((el) => {
-          return (
-            <div key={el.id}>
-              <h1>
-                {capitalize(el.name)} ({el.id})
-              </h1>
-              <h3>{el.continent}</h3>
-              <img src={el.flag} width="150" height="90" />
-            </div>
-          );
-        })
-      )}
+      <Countries countries={currentCountries} loading={loading} />
+      <Pagination
+        countriesPerPage={countriesPerPage}
+        totalCountries={countries.length}
+        paginate={renderPage}
+      />
     </div>
   );
 }
-
-function mapStateToProps(state) {
-  return {
-    countries: state.countries,
-    activities: state.activities,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    getCountries: (name, continent, activity) =>
-      dispatch(getCountries(name, continent, activity)),
-    getActivities: () => dispatch(getActivities()),
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;
