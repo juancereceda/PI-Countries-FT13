@@ -1,5 +1,5 @@
 import React from "react";
-import { capitalize } from "./functions";
+import { Link } from "react-router-dom";
 
 function Countries({ countries, loading }) {
   if (loading) {
@@ -15,10 +15,12 @@ function Countries({ countries, loading }) {
           return (
             <div key={el.id}>
               <h1>
-                {capitalize(el.name)} ({el.id})
+                {el.name.split("(")[0]} ({el.id})
               </h1>
               <h3>{el.continent}</h3>
-              <img src={el.flag} width="150" height="90" />
+              <Link to={`/countries/${el.id}`}>
+                <img src={el.flag} width="150" height="90" />
+              </Link>
             </div>
           );
         })

@@ -5,6 +5,7 @@ import Countries from "./Countries";
 import Pagination from "./Pagination";
 
 export function Home() {
+  const dispatch = useDispatch();
   const [name, setName] = useState(null);
   const [continent, setContinent] = useState(null);
   const [order, setOrder] = useState(null);
@@ -13,11 +14,14 @@ export function Home() {
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [countriesPerPage] = useState(10);
-
-  const dispatch = useDispatch();
-
   const countries = useSelector((state) => state.countries);
   const activities = useSelector((state) => state.activities);
+  const indexOfLastCountry = currentPage * countriesPerPage;
+  const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;
+  const currentCountries = sorted(countries).slice(
+    indexOfFirstCountry,
+    indexOfLastCountry
+  );
 
   useEffect(() => {
     setLoading(true);
@@ -25,13 +29,6 @@ export function Home() {
     dispatch(getActivities());
     setLoading(false);
   }, [name, continent, activity]);
-
-  const indexOfLastCountry = currentPage * countriesPerPage;
-  const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;
-  const currentCountries = sorted(countries).slice(
-    indexOfFirstCountry,
-    indexOfLastCountry
-  );
 
   function handleNameChange(event) {
     let name = event.target.value;

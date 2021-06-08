@@ -3,7 +3,7 @@ export const GET_COUNTRY_DETAIL = "GET_COUNTRY_DETAIL";
 export const ADD_ACTIVITY = "ADD_ACTIVITY";
 export const GET_ACTIVITIES = "GET_ACTIVITIES";
 
-export function getCountries(name, continent, activity, start) {
+export function getCountries(name, continent, activity) {
   let route = "http://localhost:3001/countries?";
   if (name) {
     route += `name=${name}&`;

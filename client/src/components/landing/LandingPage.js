@@ -1,7 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { getCountries } from "../../actions/actions";
-import { connect } from "react-redux";
+import React from "react";
+import { Link } from "react-router-dom";
 
-function Landing(props) {}
+function Landing() {
+  return (
+    <div>
+      <Link to="/countries">
+        <h1>Home</h1>
+      </Link>
+    </div>
+  );
+}
 
 export default Landing;
