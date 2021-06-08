@@ -3,6 +3,15 @@ const server = express();
 server.use(express.json());
 const { Activity, Country } = require("../db");
 
+server.get("/", async (req, res) => {
+  try {
+    const activities = await Activity.findAll();
+    return res.json(activities);
+  } catch (error) {
+    res.status(400).send("Something went wrong");
+  }
+});
+
 server.post("/", async (req, res) => {
   const { name, difficulty, duration, season, countries } = req.body;
   const activity = await Activity.create({

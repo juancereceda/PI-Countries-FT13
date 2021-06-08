@@ -30,15 +30,17 @@ server.get("/", async (req, res) => {
         ? (filter.where.name = { [Op.substring]: name.toLowerCase() })
         : null;
       continent ? (filter.where.continent = { [Op.eq]: continent }) : null;
-      const filteredByProps = await Country.findAll({
-        include: Activity,
+      const filteredByProps = await Country.findAndCountAll({
+        include: [{ model: Activity, require: true }],
         ...filter,
       });
       filteredByProps.length < 1
         ? res.status(404).send([])
         : res.send(filteredByProps);
     } else {
-      const countries = await Country.findAll({ limit: 10 });
+      const countries = await Country.findAndCountAll({
+        include: [{ model: Activity, require: true }],
+      });
       res.send(countries);
     }
   } catch (error) {

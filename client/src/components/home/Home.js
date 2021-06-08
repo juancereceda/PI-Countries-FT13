@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { getCountries } from "../../actions/actions";
+import { getActivities, getCountries } from "../../actions/actions";
 import { connect } from "react-redux";
-import { capitalize, sortByProp } from "./functions";
+import { capitalize } from "./functions";
 
 export function Home(props) {
   const [state, setState] = useState({
@@ -9,52 +9,56 @@ export function Home(props) {
     continent: null,
     order: null,
     asc: true,
+    activity: null,
   });
 
-  const order = state.order.toLowerCase();
-
   useEffect(() => {
-    props.getCountries(state.name, state.continent);
-    console.log(state);
+    props.getCountries(state.name, state.continent, state.activity);
+    props.getActivities();
+    console.log(state.activity);
   }, [state]);
 
   function handleNameChange(event) {
-    event.target.value === ""
-      ? setState({
-          ...state,
-          name: null,
-        })
-      : setState({
-          ...state,
-          name: event.target.value,
-        });
+    let name = event.target.value;
+    setState({
+      ...state,
+      name: name === "" ? null : name,
+    });
   }
   function handleContinentChange(event) {
-    event.target.value === "Continent"
-      ? setState({
-          ...state,
-          continent: null,
-        })
-      : setState({
-          ...state,
-          continent: event.target.value,
-        });
+    let continent = event.target.value;
+    setState({
+      ...state,
+      continent: continent === "Continent" ? null : continent,
+    });
+  }
+
+  function handleActivityChange(event) {
+    let act = event.target.value;
+    setState({
+      ...state,
+      activity: act === "Activity" ? null : act,
+    });
   }
 
   function handleSortChange(event) {
-    event.target.value === "None"
-      ? setState({
-          ...state,
-          order: null,
-        })
-      : setState({
-          ...state,
-          order: event.target.value,
-        });
+    let sort = event.target.value;
+    setState({
+      ...state,
+      order: sort === "None" ? null : sort,
+    });
+  }
+
+  function handleOrdChange(event) {
+    setState({
+      ...state,
+      asc: event.target.value === "true" ? true : false,
+    });
   }
 
   function sorted(array) {
-    if (order) {
+    if (state.order) {
+      let order = state.order.toLowerCase();
       return array.sort(function (a, b) {
         if (a[order] > b[order]) {
           return state.asc ? 1 : -1;
@@ -66,14 +70,6 @@ export function Home(props) {
       });
     }
     return array;
-  }
-
-  function handleOrdChange(event) {
-    var ord = event.target.value === "true" ? true : false;
-    setState({
-      ...state,
-      asc: ord,
-    });
   }
 
   return (
@@ -94,6 +90,14 @@ export function Home(props) {
           <option>Oceania</option>
           <option>Asia</option>
           <option>Africa</option>
+        </select>
+        <select onChange={(e) => handleActivityChange(e)}>
+          <option>Activity</option>
+          {props.activities
+            ? props.activities.map((el) => {
+                return <option>{el.name}</option>;
+              })
+            : ""}
         </select>
         <label>
           Order by
@@ -116,7 +120,7 @@ export function Home(props) {
         </div>
         <button>Search</button>
       </form>
-      {props.countries.length < 1 ? (
+      {sorted(props.countries).length < 1 ? (
         <h1>No countries found</h1>
       ) : (
         sorted(props.countries).map((el) => {
@@ -138,12 +142,15 @@ export function Home(props) {
 function mapStateToProps(state) {
   return {
     countries: state.countries,
+    activities: state.activities,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    getCountries: (name, continent) => dispatch(getCountries(name, continent)),
+    getCountries: (name, continent, activity) =>
+      dispatch(getCountries(name, continent, activity)),
+    getActivities: () => dispatch(getActivities()),
   };
 }
 
