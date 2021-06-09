@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { getCountries } from "../../actions/actions";
+import { getCountries, addActivity } from "../../actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 
 function NewActivity() {
   const dispatch = useDispatch();
   const countries = useSelector((state) => state.countries);
+  const [name, setName] = useState();
+  const [difficulty, setDifficulty] = useState();
+  const [duration, setDuration] = useState();
+  const [season, setSeason] = useState();
   const [countriesActivities, setCountriesActivies] = useState([]);
   const [country, setCountry] = useState();
 
@@ -18,25 +22,73 @@ function NewActivity() {
 
   function handleCountryAdd(e) {
     e.preventDefault();
-    setCountriesActivies([...countriesActivities, country]);
+    if (country) {
+      setCountriesActivies([...countriesActivities, country]);
+    }
     setCountry();
+    let input = document.getElementById("dataInput");
+    input.value = "";
+  }
+
+  function handleName(event) {
+    setName(event.target.value);
+  }
+  function handleDuration(event) {
+    setDuration(event.target.value);
+  }
+  function handleDifficulty(event) {
+    let dif = event.target.value;
+    setDifficulty(dif === "Difficulty" ? null : dif);
+  }
+  function handleSeason(event) {
+    let seas = event.target.value;
+    setSeason(seas === "Season" ? null : seas);
+  }
+
+  function removeCountry(country) {
+    setCountriesActivies(countriesActivities.filter((el) => el !== country));
   }
 
   function handleSubmit(event) {
-    event.preventDefault();
+    if (
+      name &&
+      countriesActivities.length > 0 &&
+      difficulty &&
+      duration &&
+      season
+    ) {
+      addActivity(
+        name,
+        difficulty,
+        duration,
+        season,
+        countriesActivities.map((el) => el.id)
+      );
+    } else {
+      event.preventDefault();
+      alert("You are missing something...");
+    }
   }
 
   return (
     <div>
       <form onSubmit={(e) => handleSubmit(e)}>
-        <input type="text" placeholder="Name of the activity..." />
+        <input
+          type="text"
+          placeholder="Name of the activity..."
+          onChange={(e) => handleName(e)}
+        />
         <br />
         <label>
-          <input type="number" placeholder="Duration..." />
+          <input
+            type="number"
+            placeholder="Duration..."
+            onChange={(e) => handleDuration(e)}
+          />
           Minutes
         </label>
         <br />
-        <select>
+        <select onChange={(e) => handleDifficulty(e)}>
           <option>Difficulty</option>
           <option>1</option>
           <option>2</option>
@@ -44,7 +96,7 @@ function NewActivity() {
           <option>4</option>
           <option>5</option>
         </select>
-        <select>
+        <select onChange={(e) => handleSeason(e)}>
           <option>Season</option>
           <option>Summer</option>
           <option>Winter</option>
@@ -54,6 +106,7 @@ function NewActivity() {
         <input
           type="text"
           list="data"
+          id="dataInput"
           placeholder="Select country..."
           onChange={(e) => handleCountry(e)}
         />
@@ -78,7 +131,15 @@ function NewActivity() {
         <br />
         <button type="submit">Add Activity</button>
       </form>
-      {countriesActivities && countriesActivities.map((el) => {})}
+      {countriesActivities &&
+        countriesActivities.map((el) => {
+          return (
+            <div>
+              <span>{el.name}</span>
+              <button onClick={() => removeCountry(el)}>X</button>
+            </div>
+          );
+        })}
     </div>
   );
 }

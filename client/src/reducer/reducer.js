@@ -8,7 +8,6 @@ const initialState = {
   countries: [],
   countryDetail: {},
   activities: [],
-  orderedCountries: [],
 };
 
 function reducer(state = initialState, action) {

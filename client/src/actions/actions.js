@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const GET_COUNTRIES = "GET_COUNTRIES";
 export const GET_COUNTRY_DETAIL = "GET_COUNTRY_DETAIL";
 export const ADD_ACTIVITY = "ADD_ACTIVITY";
@@ -11,37 +13,39 @@ export function getCountries(name, continent, activity) {
   if (continent) {
     route += `continent=${continent}&`;
   }
-  return function (dispatch) {
-    fetch(route)
-      .then((r) => r.json())
-      .then((json) =>
-        dispatch({
-          type: GET_COUNTRIES,
-          payload: activity
-            ? json.rows.filter((el) =>
-                el.activities.find((el) => el.name === activity)
-              )
-            : json.rows,
-        })
-      );
+  return async function (dispatch) {
+    let result = await axios.get(route);
+    dispatch({
+      type: GET_COUNTRIES,
+      payload: activity
+        ? result.data.rows.filter((el) =>
+            el.activities.find((el) => el.name === activity)
+          )
+        : result.data.rows,
+    });
   };
 }
 
 export function getActivities() {
-  return function (dispatch) {
-    fetch("http://localhost:3001/activities")
-      .then((r) => r.json())
-      .then((json) => dispatch({ type: GET_ACTIVITIES, payload: json }));
+  return async function (dispatch) {
+    let result = await axios.get("http://localhost:3001/activities");
+    dispatch({ type: GET_ACTIVITIES, payload: result.data });
   };
 }
 
 export function getCountryDetail(id) {
-  return function (dispatch) {
-    fetch(`http://localhost:3001/countries/${id}`)
-      .then((r) => r.json())
-      .then((json) => dispatch({ type: GET_COUNTRY_DETAIL, payload: json }));
+  return async function (dispatch) {
+    let result = await axios.get(`http://localhost:3001/countries/${id}`);
+    dispatch({ type: GET_COUNTRY_DETAIL, payload: result.data });
   };
 }
 
-/* 
-export function addActivity() {}  */
+export function addActivity(name, difficulty, duration, season, countries) {
+  axios.post("http://localhost:3001/activities", {
+    name: name,
+    difficulty: difficulty,
+    duration: duration,
+    season: season,
+    countries: countries,
+  });
+}

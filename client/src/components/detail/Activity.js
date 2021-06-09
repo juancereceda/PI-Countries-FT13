@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Activity({ name, duration, season, difficulty }) {
   let stars = [];

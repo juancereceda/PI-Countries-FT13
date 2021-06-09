@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getActivities, getCountries } from "../../actions/actions";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import Countries from "./Countries";
 import Pagination from "./Pagination";
 
@@ -121,6 +122,9 @@ export function Home() {
         </div>
         <button>Search</button>
       </form>
+      <Link to="/newactivity">
+        <button>Add activities</button>
+      </Link>
       <Countries countries={currentCountries} loading={loading} />
       <Pagination
         countriesPerPage={countriesPerPage}

@@ -1,7 +1,7 @@
 const express = require("express");
 const server = express();
 const { Country, Activity } = require("../db");
-const { Op } = require("sequelize");
+const { Op, Sequelize } = require("sequelize");
 server.use(express.json());
 
 server.get("/:id", async (req, res) => {
@@ -26,9 +26,7 @@ server.get("/", async (req, res) => {
   try {
     if (name || continent) {
       const filter = { where: {} };
-      name
-        ? (filter.where.name = { [Op.substring]: name.toLowerCase() })
-        : null;
+      name ? (filter.where.name = { [Op.iLike]: `%${name}%` }) : null;
       continent ? (filter.where.continent = { [Op.eq]: continent }) : null;
       const filteredByProps = await Country.findAndCountAll({
         include: [{ model: Activity, require: true }],

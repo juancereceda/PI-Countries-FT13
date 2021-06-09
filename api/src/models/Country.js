@@ -42,5 +42,8 @@ module.exports = (sequelize) => {
     population: {
       type: DataTypes.INTEGER,
     },
+    language: {
+      type: DataTypes.STRING,
+    },
   });
 };

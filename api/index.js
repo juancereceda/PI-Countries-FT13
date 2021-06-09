@@ -8,7 +8,7 @@ fetch("https://restcountries.eu/rest/v2/all")
     await r.forEach((el) => {
       let country = {
         id: el.alpha3Code,
-        name: el.name.toLowerCase(),
+        name: el.name,
         nativename: el.nativeName,
         flag: el.flag,
         continent: el.region,
@@ -16,6 +16,7 @@ fetch("https://restcountries.eu/rest/v2/all")
         subregion: el.subregion,
         area: el.area,
         population: el.population,
+        language: el.languages[0].name,
       };
       Country.create(country);
     });
