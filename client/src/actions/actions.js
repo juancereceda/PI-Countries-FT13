@@ -17,7 +17,9 @@ export function getCountries(name, continent, activity) {
     let result = await axios.get(route);
     dispatch({
       type: GET_COUNTRIES,
-      payload: activity
+      payload: !result.data.rows
+        ? []
+        : activity
         ? result.data.rows.filter((el) =>
             el.activities.find((el) => el.name === activity)
           )

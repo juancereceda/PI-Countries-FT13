@@ -9,14 +9,10 @@ fetch("https://restcountries.eu/rest/v2/all")
       let country = {
         id: el.alpha3Code,
         name: el.name,
-        nativename: el.nativeName,
         flag: el.flag,
         continent: el.region,
-        capital: el.capital,
-        subregion: el.subregion,
         area: el.area,
         population: el.population,
-        language: el.languages[0].name,
       };
       Country.create(country);
     });

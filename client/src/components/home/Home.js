@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { getActivities, getCountries } from "../../actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import Countries from "./Countries";
-import Pagination from "./Pagination";
+import Countries from "./Countries/Countries";
+import Pagination from "./Pagination/Pagination";
+import Loading from "../loading/Loading";
+import StyledHome from "./styles";
 
 export function Home() {
   const dispatch = useDispatch();
@@ -12,9 +14,9 @@ export function Home() {
   const [order, setOrder] = useState(null);
   const [asc, setAsc] = useState(true);
   const [activity, setActivity] = useState(null);
-  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [countriesPerPage] = useState(10);
+  const [loading, setLoading] = useState(true);
   const countries = useSelector((state) => state.countries);
   const activities = useSelector((state) => state.activities);
   const indexOfLastCountry = currentPage * countriesPerPage;
@@ -24,9 +26,9 @@ export function Home() {
     indexOfLastCountry
   );
 
-  useEffect(() => {
+  useEffect(async () => {
     setLoading(true);
-    dispatch(getCountries(name, continent, activity));
+    await dispatch(getCountries(name, continent, activity));
     dispatch(getActivities());
     setLoading(false);
   }, [name, continent, activity]);
@@ -75,63 +77,72 @@ export function Home() {
   }
 
   return (
-    <div>
-      <form onSubmit={(e) => e.preventDefault()}>
-        <input
-          placeholder="Search..."
-          autoComplete="off"
-          value={name}
-          type="text"
-          onChange={(e) => handleNameChange(e)}
-        ></input>
-        <label>Filter by: </label>
-        <select onChange={(e) => handleContinentChange(e)}>
-          <option>Continent</option>
-          <option>Americas</option>
-          <option>Europe</option>
-          <option>Oceania</option>
-          <option>Asia</option>
-          <option>Africa</option>
-        </select>
-        <select onChange={(e) => handleActivityChange(e)}>
-          <option>Activity</option>
-          {activities
-            ? activities.map((el) => {
-                return <option>{el.name}</option>;
-              })
-            : ""}
-        </select>
-        <label>
-          Order by
-          <select onChange={(e) => handleSortChange(e)}>
-            <option>None</option>
-            <option>Name</option>
-            <option>Population</option>
-            <option>Area</option>
+    <StyledHome>
+      <div className="formContainer">
+        <form className="searchForm" onSubmit={(e) => e.preventDefault()}>
+          <label>
+            Search by name: <br />
+            <input
+              placeholder="Search..."
+              autoComplete="off"
+              value={name}
+              type="text"
+              onChange={(e) => handleNameChange(e)}
+            ></input>
+          </label>
+          <label>Filter by: </label>
+          <select onChange={(e) => handleContinentChange(e)}>
+            <option>Continent</option>
+            <option>Americas</option>
+            <option>Europe</option>
+            <option>Oceania</option>
+            <option>Asia</option>
+            <option>Africa</option>
           </select>
-        </label>
-        <div onChange={(e) => handleOrdChange(e)}>
+          <select onChange={(e) => handleActivityChange(e)}>
+            <option>Activity</option>
+            {activities
+              ? activities.map((el) => {
+                  return <option>{el.name}</option>;
+                })
+              : ""}
+          </select>
           <label>
-            Asc
-            <input type="radio" name="ascDes" value={true} />
+            Order by
+            <select onChange={(e) => handleSortChange(e)}>
+              <option>None</option>
+              <option>Name</option>
+              <option>Population</option>
+              <option>Area</option>
+            </select>
           </label>
-          <label>
-            Des
-            <input type="radio" name="ascDes" value={false} />
-          </label>
+          <div onChange={(e) => handleOrdChange(e)}>
+            <label>
+              Asc
+              <input type="radio" name="ascDes" value={true} />
+            </label>
+            <label>
+              Des
+              <input type="radio" name="ascDes" value={false} />
+            </label>
+          </div>
+          <button>Search</button>
+        </form>
+      </div>
+
+      {loading ? (
+        <Loading />
+      ) : (
+        <div className="resultsContainer">
+          <Countries countries={currentCountries} />
+          <Pagination
+            countriesPerPage={countriesPerPage}
+            totalCountries={countries.length}
+            paginate={renderPage}
+          />
         </div>
-        <button>Search</button>
-      </form>
-      <Link to="/newactivity">
-        <button>Add activities</button>
-      </Link>
-      <Countries countries={currentCountries} loading={loading} />
-      <Pagination
-        countriesPerPage={countriesPerPage}
-        totalCountries={countries.length}
-        paginate={renderPage}
-      />
-    </div>
+      )}
+    </StyledHome>
   );
 }
 export default Home;

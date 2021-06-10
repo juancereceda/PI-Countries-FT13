@@ -17,10 +17,6 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    nativename: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     flag: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -29,21 +25,11 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    capital: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    subregion: {
-      type: DataTypes.STRING,
-    },
     area: {
       type: DataTypes.FLOAT,
     },
     population: {
       type: DataTypes.INTEGER,
-    },
-    language: {
-      type: DataTypes.STRING,
     },
   });
 };

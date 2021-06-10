@@ -2,20 +2,27 @@ const express = require("express");
 const server = express();
 const { Country, Activity } = require("../db");
 const { Op, Sequelize } = require("sequelize");
+const axios = require("axios");
+
 server.use(express.json());
 
 server.get("/:id", async (req, res) => {
   const { id } = req.params;
   try {
-    const foundById = await Country.findOne({
+    const response = await axios.get(
+      `https://restcountries.eu/rest/v2/alpha/${id}`
+    );
+    let foundById = await Country.findByPk(id.toUpperCase(), {
       include: Activity,
-      where: {
-        id: {
-          [Op.eq]: id.toUpperCase(),
-        },
-      },
     });
-    res.send(foundById);
+    const dataValues = {
+      borders: response.data.borders,
+      nativename: response.data.nativeName,
+      capital: response.data.capital,
+      subregion: response.data.subregion,
+      language: response.data.languages[0].name,
+    };
+    res.send({ ...foundById.dataValues, ...dataValues });
   } catch (error) {
     res.status(400).send(error);
   }
@@ -32,8 +39,8 @@ server.get("/", async (req, res) => {
         include: [{ model: Activity, require: true }],
         ...filter,
       });
-      filteredByProps.length < 1
-        ? res.status(404).send([])
+      filteredByProps.rows.length < 1
+        ? res.send({ error: "No country was found" })
         : res.send(filteredByProps);
     } else {
       const countries = await Country.findAndCountAll({

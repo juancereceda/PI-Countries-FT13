@@ -3,25 +3,20 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 function Landing() {
-  const [time, setTime] = useState();
-
-  function getTime() {
-    let now = new Date();
-    let hours = now.getHours() < 10 ? "0" + now.getHours() : now.getHours();
-    let minutes =
-      now.getMinutes() < 10 ? "0" + now.getMinutes() : now.getMinutes();
-    let seconds =
-      now.getSeconds() < 10 ? "0" + now.getSeconds() : now.getSeconds();
-    setTime(hours + ":" + minutes + ":" + seconds);
-  }
-  setInterval(getTime, 1000);
-
   return (
     <div>
-      <Link to="/countries">
-        <h1>Home</h1>
-      </Link>
-      <h4>{time}</h4>
+      <div>
+        <h4>
+          Hello traveller! Welcome here, my name is Juan Martín and i'm studying
+          Full Stack Development in Henry's Bootcamp. I've built this App so
+          that you can find information about any country you want, add tourism
+          activities to them, sort them by area, population and some other
+          features. Feel free to come in
+        </h4>
+        <Link to="/countries">
+          <h1>Home</h1>
+        </Link>
+      </div>
     </div>
   );
 }

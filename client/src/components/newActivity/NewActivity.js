@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getCountries, addActivity } from "../../actions/actions";
 import { useDispatch, useSelector } from "react-redux";
+import NavBar from "../NavBar/NavBar";
 
 function NewActivity() {
   const dispatch = useDispatch();
