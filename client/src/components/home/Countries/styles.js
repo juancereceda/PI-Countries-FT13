@@ -7,23 +7,25 @@ const Div = styled.div`
   .results {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     background-color: white;
-    margin: 3px;
-    width: 400px;
-    padding-top: 20px;
+    margin-bottom: 30px;
+    margin-right: 25px;
+
+    width: 300px;
     border: 5px solid #9fe2bf;
     text-align: center;
-    height: 300px;
-    border-radius: 100px;
+    height: 270px;
+    font-size: 10px;
+    color: gray;
     img {
-      max-height: 300px;
-      max-width: 380px;
+      border: 2px solid #9fe2bf;
+      width: 300px;
+      height: 200px;
+      object-fit: cover;
     }
-    &:hover {
-      width: 520px;
-      height: 405px;
-    }
+  }
+  &:hover .result:not(:hover) {
+    filter: grayscale(100%);
   }
 `;
 

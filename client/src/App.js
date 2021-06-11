@@ -12,8 +12,10 @@ import Contact from "./components/Contact/Contact";
 function App() {
   return (
     <React.Fragment>
-      <NavBar />
-      <Route exact path="/" component={LandingPage} />
+      <Switch>
+        <Route exact path="/" component={LandingPage} />
+        <NavBar />
+      </Switch>
       <Route exact path="/countries" component={Home} />
       <Route path="/countries/:id" component={Detail} />
       <Route path="/newactivity" component={newActivity} />

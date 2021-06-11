@@ -4,6 +4,8 @@ export const GET_COUNTRIES = "GET_COUNTRIES";
 export const GET_COUNTRY_DETAIL = "GET_COUNTRY_DETAIL";
 export const ADD_ACTIVITY = "ADD_ACTIVITY";
 export const GET_ACTIVITIES = "GET_ACTIVITIES";
+export const SET_ORDER = "SET_ORDER";
+export const SET_ASC_DES = "SET_ASC_DES";
 
 export function getCountries(name, continent, activity) {
   let route = "http://localhost:3001/countries?";
@@ -50,4 +52,16 @@ export function addActivity(name, difficulty, duration, season, countries) {
     season: season,
     countries: countries,
   });
+}
+
+export function setOrder(ord) {
+  return function (dispatch) {
+    dispatch({ type: SET_ORDER, payload: ord });
+  };
+}
+
+export function setAscDes(type) {
+  return function (dispatch) {
+    dispatch({ type: SET_ASC_DES, payload: type });
+  };
 }
