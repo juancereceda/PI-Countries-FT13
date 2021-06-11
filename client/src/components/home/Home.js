@@ -3,7 +3,7 @@ import { getActivities, getCountries } from "../../actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Countries from "./Countries/Countries";
 import Pagination from "./Pagination/Pagination";
-import LoadingCountries from "../loading/Loading";
+import LoadingCountries from "./LoadingHome/LoadingHome";
 import SearchForm from "./SearchForm/SearchForm";
 import StyledHome from "./styles";
 
