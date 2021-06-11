@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getCountries, addActivity } from "../../actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../NavBar/NavBar";
+import StyledForm from "./styles";
 
 function NewActivity() {
   const dispatch = useDispatch();
@@ -72,7 +73,7 @@ function NewActivity() {
   }
 
   return (
-    <div>
+    <StyledForm>
       <form onSubmit={(e) => handleSubmit(e)}>
         <input
           type="text"
@@ -141,7 +142,7 @@ function NewActivity() {
             </div>
           );
         })}
-    </div>
+    </StyledForm>
   );
 }
 

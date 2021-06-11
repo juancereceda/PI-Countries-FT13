@@ -3,7 +3,7 @@ import { getActivities, getCountries } from "../../actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Countries from "./Countries/Countries";
 import Pagination from "./Pagination/Pagination";
-import Loading from "../loading/Loading";
+import LoadingCountries from "../loading/Loading";
 import SearchForm from "./SearchForm/SearchForm";
 import StyledHome from "./styles";
 
@@ -52,7 +52,7 @@ export function Home() {
     <StyledHome>
       <SearchForm />
       {loading ? (
-        <Loading />
+        <LoadingCountries countriesPerPage={countriesPerPage} />
       ) : (
         <div className="resultsContainer">
           <Countries countries={currentCountries} />

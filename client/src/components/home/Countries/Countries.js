@@ -15,12 +15,13 @@ function Countries({ countries, loading }) {
         countries.map((el) => {
           return (
             <div className="results" key={el.id}>
-              <div className="result">
-                <Link to={`/countries/${el.id}`}>
-                  <img src={el.flag} />
-                </Link>
+              <Link to={`/countries/${el.id}`}>
+                <img src={el.flag} />
+              </Link>
+              <div className="countryName">
                 <h1>
-                  {el.name.split("(")[0]} ({el.continent})
+                  {el.name.split("(")[0]}{" "}
+                  {el.continent ? `(${el.continent})` : ""}
                 </h1>
               </div>
             </div>

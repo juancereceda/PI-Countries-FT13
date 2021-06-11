@@ -4,6 +4,12 @@ const Div = styled.div`
   display: flex;
   flex-wrap: wrap;
 
+  .countryName {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .results {
     display: flex;
     flex-direction: column;
@@ -24,7 +30,7 @@ const Div = styled.div`
       object-fit: cover;
     }
   }
-  &:hover .result:not(:hover) {
+  &:hover .results:not(:hover) {
     filter: grayscale(100%);
   }
 `;

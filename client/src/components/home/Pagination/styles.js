@@ -9,7 +9,8 @@ const Nav = styled.nav`
     margin: 2px;
     color: gray;
     background-color: #9fe2bf;
-    &:hover {
+    &:hover,
+    &:active {
       background-color: gray;
       color: #9fe2bf;
     }
