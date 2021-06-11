@@ -14,8 +14,6 @@ const Div = styled.div`
   .list-item {
     color: white;
     text-decoration: none;
-    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-      "Lucida Sans", Arial, sans-serif;
     &:hover {
       color: gray;
     }

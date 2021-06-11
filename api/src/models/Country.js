@@ -13,21 +13,26 @@ module.exports = (sequelize) => {
         len: 3,
       },
     },
+
     name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
+
     flag: {
       type: DataTypes.STRING,
       allowNull: false,
     },
+
     continent: {
       type: DataTypes.STRING,
       allowNull: false,
     },
+
     area: {
       type: DataTypes.FLOAT,
     },
+
     population: {
       type: DataTypes.INTEGER,
     },

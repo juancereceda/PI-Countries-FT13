@@ -6,6 +6,8 @@ import {
   setOrder,
 } from "../../../actions/actions";
 import { useDispatch, useSelector } from "react-redux";
+import StyledForm from "./styles";
+import Search from "../../../search.png";
 
 function SearchForm() {
   const dispatch = useDispatch();
@@ -40,7 +42,7 @@ function SearchForm() {
 
   function handleSortChange(event) {
     let sort = event.target.value;
-    setOrd(sort === "Order by" ? null : sort);
+    setOrd(sort === "---" ? null : sort);
   }
 
   function handleOrdChange(event) {
@@ -48,54 +50,50 @@ function SearchForm() {
   }
 
   return (
-    <div className="formContainer">
-      <form className="searchForm" onSubmit={(e) => e.preventDefault()}>
-        <label>
-          <input
-            placeholder="Search by name..."
-            autoComplete="off"
-            value={name}
-            type="text"
-            onChange={(e) => handleNameChange(e)}
-          ></input>
-        </label>
-        <label>
-          Filters <br />
-          <select onChange={(e) => handleContinentChange(e)}>
-            <option>Continent</option>
-            <option>Americas</option>
-            <option>Europe</option>
-            <option>Oceania</option>
-            <option>Asia</option>
-            <option>Africa</option>
-          </select>
-          <br />
-          <select onChange={(e) => handleActivityChange(e)}>
-            <option>Activity</option>
-            {activities
-              ? activities.map((el) => {
-                  return <option>{el.name}</option>;
-                })
-              : ""}
-          </select>
-        </label>
-        <label>
-          Order <br />
-          <select onChange={(e) => handleSortChange(e)}>
-            <option>Order by</option>
-            <option>Name</option>
-            <option>Population</option>
-            <option>Area</option>
-          </select>
-          <div onChange={(e) => handleOrdChange(e)}>
-            ↑
-            <input type="radio" name="ascDes" value={true} />
-            ↓
-            <input type="radio" name="ascDes" value={false} />
-          </div>
-        </label>
-      </form>
-    </div>
+    <StyledForm onSubmit={(e) => e.preventDefault()}>
+      <div className="filters">
+        <span>Filters </span>
+        <select onChange={(e) => handleContinentChange(e)}>
+          <option>Continent</option>
+          <option>Americas</option>
+          <option>Europe</option>
+          <option>Oceania</option>
+          <option>Asia</option>
+          <option>Africa</option>
+        </select>
+        <select onChange={(e) => handleActivityChange(e)}>
+          <option>Activity</option>
+          {activities
+            ? activities.map((el) => {
+                return <option>{el.name}</option>;
+              })
+            : ""}
+        </select>
+      </div>
+      <div className="input-cont">
+        <img src={Search} />
+        <input
+          placeholder="Search by name..."
+          autoComplete="off"
+          value={name}
+          type="text"
+          onChange={(e) => handleNameChange(e)}
+        ></input>
+      </div>
+      <div>
+        <span>Order by: </span>
+        <select onChange={(e) => handleSortChange(e)}>
+          <option>---</option>
+          <option>Name</option>
+          <option>Population</option>
+          <option>Area</option>
+        </select>
+        <select onChange={(e) => handleOrdChange(e)}>
+          <option value={true}>Asc</option>
+          <option value={false}>Des</option>
+        </select>
+      </div>
+    </StyledForm>
   );
 }
 

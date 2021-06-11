@@ -22,6 +22,6 @@ fetch("https://restcountries.eu/rest/v2/all")
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
   server.listen(3001, () => {
-    console.log(conn.models); // eslint-disable-line no-console
+    console.log("Listening on port 3001..."); // eslint-disable-line no-console
   });
 });

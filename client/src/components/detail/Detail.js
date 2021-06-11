@@ -1,9 +1,14 @@
 import React, { useEffect } from "react";
 import { getCountryDetail } from "../../actions/actions";
 import { useDispatch, useSelector } from "react-redux";
-import Activity from "./Activity";
+import Activity from "./Activity/Activity";
 import { formatArea, formatPopulation } from "./functions";
-import Loading from "../loading/Loading";
+import Loading from "./LoadingDetail/LoadingDetail";
+import StyledDiv from "./styles";
+import Population from "../../population.png";
+import Area from "../../area.png";
+import Location from "../../location.png";
+import Language from "../../language.png";
 
 function Country(props) {
   var id = props.match.params.id;
@@ -15,45 +20,72 @@ function Country(props) {
   }, []);
 
   return (
-    <div>
+    <StyledDiv>
       {country.id !== id ? (
         <Loading />
       ) : (
-        <div>
-          <h1>
-            {country.name && country.name.split("(")[0]} ({country.id})
-          </h1>
-          {country.name !== country.nativename ? (
-            <h2>Native name: {country.nativename}</h2>
-          ) : null}
-          <h2>Capital: {country.capital}</h2>
-          <h4>
-            {country.continent}{" "}
-            {country.subregion ? "/ " + country.subregion : ""}
-          </h4>
-          <h4>Population: {formatPopulation(country.population)}</h4>
-          <h4>Area: {formatArea(country.area)}</h4>
-          <h4>Main language: {country.language}</h4>
-          <img src={country.flag} width="390" height="250" />
-
-          <h4>Activities: </h4>
-          <ul>
-            {country.activities && country.activities.length > 0 ? (
-              country.activities.map((el) => (
-                <Activity
-                  name={el.name}
-                  duration={el.duration}
-                  season={el.season}
-                  difficulty={el.difficulty}
-                />
-              ))
-            ) : (
-              <span>No activities</span>
-            )}
-          </ul>
+        <div className="detailContainer">
+          <div className="country">
+            <h1>
+              {country.name && country.name.split("(")[0]} ({country.id})
+            </h1>
+            <div className="midCard">
+              <div className="infoDiv">
+                {country.capital ? <h2>Capital: {country.capital}</h2> : null}
+                {country.continent ? (
+                  <div className="iconedDiv">
+                    <img src={Location} height="15" width="15" />
+                    <h4>
+                      {country.continent}{" "}
+                      {country.subregion ? "/ " + country.subregion : ""}
+                    </h4>
+                  </div>
+                ) : null}
+                <div className="iconedDiv">
+                  <img src={Language} height="15" width="15" />
+                  <h4>Main language: {country.language}</h4>
+                </div>
+              </div>
+              <div className="infoDiv">
+                {country.name !== country.nativename ? (
+                  <h2>Native name: {country.nativename}</h2>
+                ) : (
+                  <h2></h2>
+                )}
+                <div>
+                  <div className="iconedDiv">
+                    <img src={Population} height="15" width="15" />
+                    <h4>Population: {formatPopulation(country.population)}</h4>
+                  </div>
+                </div>
+                <div className="iconedDiv">
+                  <img src={Area} height="15" width="15" />
+                  <h4>Area: {formatArea(country.area)}</h4>
+                </div>
+              </div>
+              <img src={country.flag} className="detailedFlag" />
+            </div>
+          </div>
+          <div>
+            <h4>Activities: </h4>
+            <ul className="activities">
+              {country.activities && country.activities.length > 0 ? (
+                country.activities.map((el) => (
+                  <Activity
+                    name={el.name}
+                    duration={el.duration}
+                    season={el.season}
+                    difficulty={el.difficulty}
+                  />
+                ))
+              ) : (
+                <span>No activities</span>
+              )}
+            </ul>
+          </div>
         </div>
       )}
-    </div>
+    </StyledDiv>
   );
 }
 
