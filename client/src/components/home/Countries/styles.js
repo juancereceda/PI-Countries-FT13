@@ -10,6 +10,9 @@ const Div = styled.div`
     justify-content: center;
     align-items: center;
   }
+  &:hover .results:not(:hover) {
+    filter: grayscale(100%);
+  }
 
   .results {
     display: flex;
@@ -30,9 +33,6 @@ const Div = styled.div`
       height: 200px;
       object-fit: cover;
     }
-  }
-  &:hover .results:not(:hover) {
-    filter: grayscale(100%);
   }
 `;
 

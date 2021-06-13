@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { getCountries, addActivity } from "../../actions/actions";
+import {
+  getCountries,
+  addActivity,
+  getActivities,
+} from "../../actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import NavBar from "../NavBar/NavBar";
 import StyledForm from "./styles";
@@ -7,6 +11,7 @@ import StyledForm from "./styles";
 function NewActivity() {
   const dispatch = useDispatch();
   const countries = useSelector((state) => state.countries);
+  const activities = useSelector((state) => state.activities);
   const [name, setName] = useState();
   const [difficulty, setDifficulty] = useState();
   const [duration, setDuration] = useState();
@@ -16,6 +21,7 @@ function NewActivity() {
 
   useEffect(() => {
     dispatch(getCountries());
+    dispatch(getActivities());
   }, []);
 
   function handleCountry(event) {
@@ -52,6 +58,10 @@ function NewActivity() {
   }
 
   function handleSubmit(event) {
+    if (activities.find((el) => el.name === name)) {
+      event.preventDefault();
+      return alert("An activity with that name already exists");
+    }
     if (
       name &&
       countriesActivities.length > 0 &&
@@ -75,36 +85,38 @@ function NewActivity() {
   return (
     <StyledForm>
       <form onSubmit={(e) => handleSubmit(e)}>
+        <h1>Add activity</h1>
         <input
           type="text"
           placeholder="Name of the activity..."
           onChange={(e) => handleName(e)}
         />
-        <br />
-        <label>
-          <input
-            type="number"
-            placeholder="Duration..."
-            onChange={(e) => handleDuration(e)}
-          />
-          Minutes
-        </label>
-        <br />
-        <select onChange={(e) => handleDifficulty(e)}>
-          <option>Difficulty</option>
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select>
-        <select onChange={(e) => handleSeason(e)}>
-          <option>Season</option>
-          <option>Summer</option>
-          <option>Winter</option>
-          <option>Spring</option>
-          <option>Autumn</option>
-        </select>
+        <div>
+          <label>
+            <input
+              type="number"
+              placeholder="Duration..."
+              onChange={(e) => handleDuration(e)}
+            />
+            <span> Minutes</span>
+          </label>
+          <br />
+          <select onChange={(e) => handleDifficulty(e)}>
+            <option>Difficulty</option>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+          <select onChange={(e) => handleSeason(e)}>
+            <option>Season</option>
+            <option>Summer</option>
+            <option>Winter</option>
+            <option>Spring</option>
+            <option>Autumn</option>
+          </select>
+        </div>
         <input
           type="text"
           list="data"
@@ -129,19 +141,27 @@ function NewActivity() {
                 return <option key={country.id} value={country.name} />;
               })}
         </datalist>
-        <button onClick={(e) => handleCountryAdd(e)}>Add</button>
+        <button className="add" onClick={(e) => handleCountryAdd(e)}>
+          +
+        </button>
         <br />
-        <button type="submit">Add Activity</button>
+        <button className="submitBtn" type="submit">
+          Add Activity
+        </button>
       </form>
-      {countriesActivities &&
-        countriesActivities.map((el) => {
-          return (
-            <div>
-              <span>{el.name}</span>
-              <button onClick={() => removeCountry(el)}>X</button>
-            </div>
-          );
-        })}
+      <div className="countriesCnt">
+        {countriesActivities &&
+          countriesActivities.map((el) => {
+            return (
+              <div className="countryDiv">
+                <span>{el.name} |</span>
+                <button className="removeBtn" onClick={() => removeCountry(el)}>
+                  X
+                </button>
+              </div>
+            );
+          })}
+      </div>
     </StyledForm>
   );
 }

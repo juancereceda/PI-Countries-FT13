@@ -12,13 +12,22 @@ const Div = styled.div`
   align-items: center;
   border: 2px solid #9fe2bf;
   border-radius: 20px;
+  #nombre {
+    text-align: center;
+  }
+  .infoDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
   .iconedProp {
     img {
       margin-top: 22px;
       margin-right: 7px;
     }
     display: flex;
-    margin-bottom: 10px;
+    margin-bottom: -10px;
   }
   &:hover {
     background-color: rgba(200, 200, 200, 0.8);

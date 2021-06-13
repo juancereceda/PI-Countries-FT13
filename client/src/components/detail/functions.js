@@ -12,7 +12,7 @@ export function formatArea(number) {
   if (number >= 1000000) {
     return Math.round(number / 10000) / 100 + " millon km²";
   } else if (number >= 1000) {
-    return Math.round(number / 10) / 100 + " km²";
+    return Math.round(number) / 1000 + " km²";
   } else if (!number) {
     return "Not specified";
   } else {

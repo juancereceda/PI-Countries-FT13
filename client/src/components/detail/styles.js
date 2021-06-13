@@ -9,19 +9,19 @@ const Div = styled.div`
     height: 250px;
     object-fit: cover;
   }
-
   .detailContainer {
     width: 1100px;
     background-color: rgba(210, 210, 210, 0.8);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: space evenly;
   }
   .country {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    margin-left: 30px;
   }
 
   .activities {

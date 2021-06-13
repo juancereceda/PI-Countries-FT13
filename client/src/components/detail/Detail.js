@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { getCountryDetail } from "../../actions/actions";
+import { getCountryDetail, getCountries } from "../../actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import Activity from "./Activity/Activity";
 import { formatArea, formatPopulation } from "./functions";
@@ -15,13 +15,14 @@ function Country(props) {
   const dispatch = useDispatch();
   const country = useSelector((state) => state.countryDetail);
 
-  useEffect(() => {
-    dispatch(getCountryDetail(id));
+  useEffect(async () => {
+    await dispatch(getCountryDetail(id));
+    await dispatch(getCountries());
   }, []);
 
   return (
     <StyledDiv>
-      {country.id !== id ? (
+      {country.id == id ? (
         <Loading />
       ) : (
         <div className="detailContainer">
@@ -66,21 +67,19 @@ function Country(props) {
               <img src={country.flag} className="detailedFlag" />
             </div>
           </div>
-          <div>
-            <h4>Activities: </h4>
+
+          <div className="activitiesContainer">
             <ul className="activities">
-              {country.activities && country.activities.length > 0 ? (
-                country.activities.map((el) => (
-                  <Activity
-                    name={el.name}
-                    duration={el.duration}
-                    season={el.season}
-                    difficulty={el.difficulty}
-                  />
-                ))
-              ) : (
-                <span>No activities</span>
-              )}
+              {country.activities && country.activities.length > 0
+                ? country.activities.map((el) => (
+                    <Activity
+                      name={el.name}
+                      duration={el.duration}
+                      season={el.season}
+                      difficulty={el.difficulty}
+                    />
+                  ))
+                : null}
             </ul>
           </div>
         </div>
