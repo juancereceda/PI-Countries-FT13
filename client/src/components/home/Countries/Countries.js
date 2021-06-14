@@ -2,11 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import StyledCountries from "./styles";
 
-function Countries({ countries, loading }) {
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
-
+function Countries({ countries }) {
   return (
     <StyledCountries>
       {countries.length < 1 ? (

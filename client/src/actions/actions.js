@@ -19,13 +19,13 @@ export function getCountries(name, continent, activity) {
     let result = await axios.get(route);
     dispatch({
       type: GET_COUNTRIES,
-      payload: !result.data.rows
+      payload: !result.data
         ? []
         : activity
-        ? result.data.rows.filter((el) =>
+        ? result.data.filter((el) =>
             el.activities.find((el) => el.name === activity)
           )
-        : result.data.rows,
+        : result.data,
     });
   };
 }

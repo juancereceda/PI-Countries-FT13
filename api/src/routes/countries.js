@@ -1,7 +1,7 @@
 const express = require("express");
 const server = express();
 const { Country, Activity } = require("../db");
-const { Op, Sequelize } = require("sequelize");
+const { Op } = require("sequelize");
 const axios = require("axios");
 
 server.use(express.json());
@@ -16,7 +16,6 @@ server.get("/:id", async (req, res) => {
       include: Activity,
     });
     const dataValues = {
-      borders: response.data.borders,
       nativename: response.data.nativeName,
       capital: response.data.capital,
       subregion: response.data.subregion,
@@ -35,15 +34,15 @@ server.get("/", async (req, res) => {
       const filter = { where: {} };
       name ? (filter.where.name = { [Op.iLike]: `%${name}%` }) : null;
       continent ? (filter.where.continent = { [Op.eq]: continent }) : null;
-      const filteredByProps = await Country.findAndCountAll({
+      const filteredByProps = await Country.findAll({
         include: [{ model: Activity, require: true }],
         ...filter,
       });
-      filteredByProps.rows.length < 1
+      filteredByProps.length < 1
         ? res.send({ error: "No country was found" })
         : res.send(filteredByProps);
     } else {
-      const countries = await Country.findAndCountAll({
+      const countries = await Country.findAll({
         include: [{ model: Activity, require: true }],
       });
       res.send(countries);

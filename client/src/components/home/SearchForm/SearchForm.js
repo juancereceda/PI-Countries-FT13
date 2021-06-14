@@ -23,7 +23,6 @@ function SearchForm() {
     dispatch(getActivities());
     dispatch(setOrder(order));
     dispatch(setAscDes(asc));
-    console.log(asc);
   }, [name, continent, activity, order, asc]);
 
   function handleNameChange(event) {

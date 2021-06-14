@@ -17,10 +17,10 @@ export function Home() {
   const [loading, setLoading] = useState(true);
   const indexOfLastCountry = currentPage * countriesPerPage;
   const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;
-  const currentCountries = sorted(countries).slice(
-    indexOfFirstCountry,
-    indexOfLastCountry
-  );
+  const currentCountries =
+    countries.length > 0
+      ? sorted(countries).slice(indexOfFirstCountry, indexOfLastCountry)
+      : [];
 
   useEffect(async () => {
     await dispatch(getCountries());

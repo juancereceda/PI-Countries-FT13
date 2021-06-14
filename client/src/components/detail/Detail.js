@@ -22,7 +22,7 @@ function Country(props) {
 
   return (
     <StyledDiv>
-      {country.id == id ? (
+      {country.id !== id ? (
         <Loading />
       ) : (
         <div className="detailContainer">
