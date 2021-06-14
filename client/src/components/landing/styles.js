@@ -10,18 +10,21 @@ const Div = styled.div`
   font-size: 20px;
   text-align: center;
   .button {
-    background-color: #9fe2bf;
-    width: 80px;
+    button {
+      background-color: #9fe2bf;
+      color: white;
+      border-radius: 15px;
+      border: 1px solid gray;
+      padding: 12px 20px;
+      &:hover {
+        background-color: #94ceaf;
+        color: #f3f3f3;
+      }
+    }
+    text-decoration: none;
     display: flex;
     justify-content: center;
     align-self: center;
-    color: white;
-    text-decoration: none;
-    border-radius: 15px;
-    &:hover {
-      background-color: #94ceaf;
-      color: #f3f3f3;
-    }
   }
 `;
 

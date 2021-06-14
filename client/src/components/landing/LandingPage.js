@@ -13,7 +13,7 @@ function Landing() {
         features. Feel free to come in!
       </h4>
       <Link to="/countries" className="button">
-        <h4>Go!</h4>
+        <button>Go!</button>
       </Link>
     </StyledHome>
   );

@@ -37,6 +37,7 @@ const Div = styled.div`
       display: flex;
       flex-direction: column;
       justify-content: center;
+      max-width: 280px;
       .iconedDiv {
         img {
           margin-top: 22px;

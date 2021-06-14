@@ -19,16 +19,16 @@ function About() {
       </h4>
       <div className="pern">
         <a href="https://www.postgresql.org/">
-          <img src={Postgres} width="50" heigth="50" />
+          <img src={Postgres} width="50" heigth="50" className="pernIcon" />
         </a>
         <a href="https://expressjs.com/">
-          <img src={Express} width="150" height="50" />
+          <img src={Express} width="150" height="50" className="pernIcon" />
         </a>
         <a href="https://reactjs.org/">
-          <img src={ReactLogo} width="60" height="50" />
+          <img src={ReactLogo} width="60" height="50" className="pernIcon" />
         </a>
         <a href="https://nodejs.org/">
-          <img src={Node} width="80" height="50" />
+          <img src={Node} width="80" height="50" className="pernIcon" />
         </a>
       </div>
     </AboutDiv>
