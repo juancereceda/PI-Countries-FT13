@@ -99,7 +99,7 @@ function NewActivity() {
               placeholder="Duration..."
               onChange={(e) => handleDuration(e)}
             />
-            <span> Minutes</span>
+            <span className="minutes"> Minutes</span>
           </label>
           <br />
           <select onChange={(e) => handleDifficulty(e)}>
