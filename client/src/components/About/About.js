@@ -1,9 +1,9 @@
 import React from "react";
 import AboutDiv from "./styles";
-import Postgres from "../../postgres.png";
-import ReactLogo from "../../react.png";
-import Express from "../../express.png";
-import Node from "../../node.png";
+import Postgres from "../../img/postgres.png";
+import ReactLogo from "../../img/react.png";
+import Express from "../../img/express.png";
+import Node from "../../img/node.png";
 
 function About() {
   return (

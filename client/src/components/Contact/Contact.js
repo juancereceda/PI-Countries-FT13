@@ -1,8 +1,8 @@
 import React from "react";
 import ContactDiv from "./styles.js";
-import Pin from "../../pin.png";
-import Email from "../../email.png";
-import LinkedIn from "../../linkedin-logo.png";
+import Pin from "../../img/pin.png";
+import Email from "../../img/email.png";
+import LinkedIn from "../../img/linkedin-logo.png";
 
 function Contact() {
   return (

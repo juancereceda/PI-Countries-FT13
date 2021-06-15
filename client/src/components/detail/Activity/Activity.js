@@ -1,6 +1,6 @@
 import React from "react";
 import StyledActivity from "./styles";
-import Clock from "../../../clock.png";
+import Clock from "../../../img/clock.png";
 
 function Activity({ name, duration, season, difficulty }) {
   let stars = [];

@@ -17,8 +17,8 @@ const Nav = styled.nav`
     color: gray;
     background-color: #9fe2bf;
     font-family: "Questrial", sans-serif;
-    &:hover,
-    &:active {
+    &:focus,
+    &:hover {
       background-color: gray;
       color: #9fe2bf;
     }

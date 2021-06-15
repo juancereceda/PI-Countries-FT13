@@ -1,5 +1,5 @@
 import React from "react";
-import skeleton from "../../../cardSkeleton.png";
+import skeleton from "../../../img/cardSkeleton.png";
 import StyledSkeleton from "./styles";
 
 function Loading({ countriesPerPage }) {

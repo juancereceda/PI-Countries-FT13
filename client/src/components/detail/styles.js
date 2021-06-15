@@ -8,6 +8,8 @@ const Div = styled.div`
     width: 390px;
     height: 250px;
     object-fit: cover;
+
+    box-shadow: 10px 10px 5px grey;
   }
   .detailContainer {
     width: 1100px;

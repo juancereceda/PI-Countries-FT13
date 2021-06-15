@@ -21,7 +21,9 @@ server.get("/:id", async (req, res) => {
       subregion: response.data.subregion,
       language: response.data.languages[0].name,
     };
-    res.send({ ...foundById.dataValues, ...dataValues });
+    foundById
+      ? res.send({ ...foundById.dataValues, ...dataValues })
+      : res.sendStatus(404);
   } catch (error) {
     res.status(400).send(error);
   }

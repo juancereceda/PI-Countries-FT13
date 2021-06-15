@@ -5,19 +5,19 @@ import Activity from "./Activity/Activity";
 import { formatArea, formatPopulation } from "./functions";
 import Loading from "./LoadingDetail/LoadingDetail";
 import StyledDiv from "./styles";
-import Population from "../../population.png";
-import Area from "../../area.png";
-import Location from "../../location.png";
-import Language from "../../language.png";
+import Population from "../../img/population.png";
+import Area from "../../img/area.png";
+import Location from "../../img/location.png";
+import Language from "../../img/language.png";
 
 function Country(props) {
   var id = props.match.params.id;
   const dispatch = useDispatch();
   const country = useSelector((state) => state.countryDetail);
 
-  useEffect(async () => {
-    await dispatch(getCountryDetail(id));
-    await dispatch(getCountries());
+  useEffect(() => {
+    dispatch(getCountryDetail(id));
+    dispatch(getCountries());
   }, []);
 
   return (

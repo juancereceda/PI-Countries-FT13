@@ -7,7 +7,7 @@ import {
 } from "../../../actions/actions";
 import { useDispatch, useSelector } from "react-redux";
 import StyledForm from "./styles";
-import Search from "../../../search.png";
+import Search from "../../../img/search.png";
 
 function SearchForm() {
   const dispatch = useDispatch();

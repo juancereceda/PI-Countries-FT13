@@ -27,6 +27,7 @@ const Div = styled.div`
     height: 270px;
     font-size: 10px;
     color: gray;
+    box-shadow: 10px 10px 5px grey;
     img {
       border: 2px solid #9fe2bf;
       width: 300px;
