@@ -76,6 +76,7 @@ function NewActivity() {
         season,
         countriesActivities.map((el) => el.id)
       );
+      alert("Tourism activity added succesfully!");
     } else {
       event.preventDefault();
       alert("You are missing something...");

@@ -12,9 +12,11 @@ export function Home() {
   const countries = useSelector((state) => state.countries);
   const order = useSelector((state) => state.ord);
   const asc = useSelector((state) => state.asc);
+
+  const [loading, setLoading] = useState(true);
+  // Paginate
   const [currentPage, setCurrentPage] = useState(1);
   const [countriesPerPage] = useState(12);
-  const [loading, setLoading] = useState(true);
   const indexOfLastCountry = currentPage * countriesPerPage;
   const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;
   const currentCountries =
