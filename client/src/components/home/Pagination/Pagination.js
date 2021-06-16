@@ -1,9 +1,7 @@
 import React from "react";
 import StyledNav from "./styles";
-import { useHistory } from "react-router-dom";
 
 function Pagination({ countriesPerPage, totalCountries, paginate }) {
-  const history = useHistory();
   const pageNumbers = [];
   for (let i = 1; i <= Math.ceil(totalCountries / countriesPerPage); i++) {
     i < 10 ? pageNumbers.push("0" + i) : pageNumbers.push(i);

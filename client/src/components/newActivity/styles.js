@@ -31,6 +31,9 @@ const div = styled.div`
       background-color: #7eb799;
     }
   }
+  .minutes {
+    font-size: 13px;
+  }
   .submitBtn {
     margin-top: 10px;
     margin-bottom: 10px;

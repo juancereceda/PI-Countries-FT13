@@ -11,18 +11,16 @@ import Location from "../../img/location.png";
 import Language from "../../img/language.png";
 
 function Country(props) {
-  var id = props.match.params.id;
+  const id = props.match.params.id;
   const dispatch = useDispatch();
   const country = useSelector((state) => state.countryDetail);
-
   useEffect(() => {
     dispatch(getCountryDetail(id));
-    dispatch(getCountries());
   }, []);
 
   return (
     <StyledDiv>
-      {country.id !== id ? (
+      {country && country.id !== id ? (
         <Loading />
       ) : (
         <div className="detailContainer">

@@ -16,9 +16,7 @@ function Contact() {
       <div className="contactDiv">
         <div className="contactInfo">
           <img src={Pin} height="30" width="30" />
-          <a href="https://goo.gl/maps/mydeHfWzqpGK8wwx7">
-            <h4>Bahia Blanca, Buenos Aires, Argentina.</h4>
-          </a>
+          <h4>Bahia Blanca, Buenos Aires, Argentina.</h4>
         </div>
         <div className="contactInfo">
           <img src={Email} height="30" width="30" />
