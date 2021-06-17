@@ -10,7 +10,7 @@ function Loading({ countriesPerPage }) {
   return (
     <StyledSkeleton>
       {array.map((el) => {
-        return <img src={skeleton} />;
+        return <img key={el} src={skeleton} />;
       })}
     </StyledSkeleton>
   );
