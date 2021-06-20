@@ -4,6 +4,7 @@ import Postgres from "../../img/postgres.png";
 import ReactLogo from "../../img/react.png";
 import Express from "../../img/express.png";
 import Node from "../../img/node.png";
+import Redux from "../../img/redux.png";
 
 function About() {
   return (
@@ -23,6 +24,9 @@ function About() {
         </a>
         <a href="https://expressjs.com/">
           <img src={Express} width="150" height="50" className="pernIcon" />
+        </a>
+        <a href="https://redux.js.org/">
+          <img src={Redux} width="60" height="50" className="pernIcon" />
         </a>
         <a href="https://reactjs.org/">
           <img src={ReactLogo} width="60" height="50" className="pernIcon" />

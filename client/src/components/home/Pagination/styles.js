@@ -3,7 +3,7 @@ import styled from "styled-components";
 const Nav = styled.nav`
   display: flex;
   justify-content: center;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
   .list {
     margin: 0;
     padding: 0;
@@ -21,6 +21,8 @@ const Nav = styled.nav`
     &:hover {
       background-color: gray;
       color: #9fe2bf;
+      transform: scale(1.1);
+      transition: 0.3s;
     }
   }
 `;

@@ -18,13 +18,13 @@ function Contact() {
           <img src={Pin} height="30" width="30" />
           <h4>Bahia Blanca, Buenos Aires, Argentina.</h4>
         </div>
-        <div className="contactInfo">
+        <div className="contactInfo tag">
           <img src={Email} height="30" width="30" />
           <a href="mailto:juanmcereceda@gmail.com?">
             <h4>juanmcereceda@gmail.com</h4>
           </a>
         </div>
-        <div className="contactInfo">
+        <div className="contactInfo tag">
           <img src={LinkedIn} height="30" width="30" />
           <a href="http://www.linkedin.com/in/juancereceda">
             <h4>Juan Martín Cereceda</h4>

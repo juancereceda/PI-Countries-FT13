@@ -11,6 +11,25 @@ const div = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  .addEditCnt {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 100px;
+  }
+
+  .addEditButton {
+    width: 70px;
+    height: 40px;
+    color: rgb(40, 40, 40);
+    font-family: "Questrial", sans-serif;
+    font-weight: bold;
+    background-color: #9fe2bf;
+    border: 1px solid #686868;
+    border-radius: 5px;
+    &:hover {
+      transform: scale(1.1);
+    }
+  }
 
   input,
   datalist,
@@ -48,6 +67,16 @@ const div = styled.div`
 
   form {
     margin-top: 20px;
+  }
+
+  #infoEdit {
+    font-style: italic;
+  }
+
+  .backImage {
+    &:hover {
+      transform: scale(1.1);
+    }
   }
 
   .countriesCnt {

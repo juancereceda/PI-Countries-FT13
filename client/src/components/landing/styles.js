@@ -19,6 +19,7 @@ const Div = styled.div`
       &:hover {
         background-color: #94ceaf;
         color: #f3f3f3;
+        transform: scale(1.05);
       }
     }
     text-decoration: none;

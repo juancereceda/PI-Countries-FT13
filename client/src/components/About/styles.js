@@ -15,8 +15,11 @@ const Div = styled.div`
   .pern {
     display: flex;
     justify-content: space-evenly;
-    &:hover .pernIcon:not(:hover) {
-      filter: grayscale(100%);
+    img {
+      &:hover {
+        transform: scale(1.1);
+        transition: 0.5s;
+      }
     }
   }
 `;

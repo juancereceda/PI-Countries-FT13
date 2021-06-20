@@ -3,10 +3,11 @@ import {
   getCountries,
   addActivity,
   getActivities,
+  updateActivity,
 } from "../../actions/actions";
 import { useDispatch, useSelector } from "react-redux";
-import NavBar from "../NavBar/NavBar";
 import StyledForm from "./styles";
+import Back from "../../img/leftArrow.png";
 
 function NewActivity() {
   const dispatch = useDispatch();
@@ -19,10 +20,16 @@ function NewActivity() {
   const [countriesActivities, setCountriesActivies] = useState([]);
   const [country, setCountry] = useState();
 
+  // Edit
+  const [addEdit, setAddEdit] = useState("none");
+  const [activityEdit, setActivityEdit] = useState(null);
+
   useEffect(() => {
     dispatch(getCountries());
     dispatch(getActivities());
   }, []);
+
+  // Add
 
   function handleCountry(event) {
     setCountry(countries.find((el) => el.name === event.target.value));
@@ -39,7 +46,8 @@ function NewActivity() {
   }
 
   function handleName(event) {
-    setName(event.target.value);
+    let provName = event.target.value;
+    setName(provName);
   }
   function handleDuration(event) {
     setDuration(event.target.value);
@@ -58,111 +66,311 @@ function NewActivity() {
   }
 
   function handleSubmit(event) {
-    if (activities.find((el) => el.name === name)) {
-      event.preventDefault();
-      return alert("An activity with that name already exists");
-    }
-    if (
-      name &&
-      countriesActivities.length > 0 &&
-      difficulty &&
-      duration &&
-      season
-    ) {
-      addActivity(
-        name,
-        difficulty,
-        duration,
-        season,
-        countriesActivities.map((el) => el.id)
-      );
-      alert("Tourism activity added succesfully!");
+    if (!activityEdit) {
+      if (activities.find((el) => el.name === name)) {
+        event.preventDefault();
+        return alert("An activity with that name already exists");
+      }
+      if (
+        name &&
+        countriesActivities.length > 0 &&
+        difficulty &&
+        duration &&
+        season
+      ) {
+        addActivity(
+          name,
+          difficulty,
+          duration,
+          season,
+          countriesActivities.map((el) => el.id)
+        );
+        alert("Tourism activity added succesfully!");
+      } else {
+        event.preventDefault();
+        alert("You are missing something...");
+      }
     } else {
-      event.preventDefault();
-      alert("You are missing something...");
+      if (
+        name &&
+        countriesActivities.length > 0 &&
+        difficulty &&
+        duration &&
+        season
+      ) {
+        updateActivity(
+          name,
+          difficulty,
+          duration,
+          season,
+          countriesActivities.map((el) => el.id)
+        );
+        alert("Tourism activity modified succesfully!");
+      } else {
+        event.preventDefault();
+        alert("You should complete everything...");
+      }
     }
+  }
+
+  // Edit
+
+  function handleActivityEdit(event) {
+    let actEdit = event.target.value;
+    setActivityEdit(
+      actEdit === "null" ? null : activities.find((el) => el.name === actEdit)
+    );
+    setName(actEdit === "null" ? null : actEdit);
+    setCountriesActivies(
+      countries.filter((el) => el.activities.find((el) => el.name === actEdit))
+    );
+  }
+
+  function handleBack() {
+    setName();
+    setDifficulty();
+    setDuration();
+    setSeason();
+    setCountriesActivies([]);
+    setAddEdit("none");
+    setCountry();
+    setActivityEdit();
   }
 
   return (
     <StyledForm>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <h1>Add activity</h1>
-        <input
-          type="text"
-          placeholder="Name of the activity..."
-          onChange={(e) => handleName(e)}
-        />
+      {addEdit === "none" ? (
         <div>
-          <label>
-            <input
-              type="number"
-              placeholder="Duration..."
-              onChange={(e) => handleDuration(e)}
-            />
-            <span className="minutes"> Minutes</span>
-          </label>
-          <br />
-          <select onChange={(e) => handleDifficulty(e)}>
-            <option>Difficulty</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-          <select onChange={(e) => handleSeason(e)}>
-            <option>Season</option>
-            <option>Summer</option>
-            <option>Winter</option>
-            <option>Spring</option>
-            <option>Autumn</option>
-          </select>
+          <h1>Do you want to add or modify a tourism activity?</h1>
+          <div className="addEditCnt">
+            <button className="addEditButton" onClick={() => setAddEdit("add")}>
+              Add
+            </button>
+            <button
+              className="addEditButton"
+              onClick={() => setAddEdit("edit")}
+            >
+              Modify
+            </button>
+          </div>
         </div>
-        <input
-          type="text"
-          list="data"
-          id="dataInput"
-          placeholder="Select country..."
-          onChange={(e) => handleCountry(e)}
-        />
-        <datalist id="data">
-          {countries &&
-            countries
-              .filter((el) => !countriesActivities.includes(el))
-              .sort((a, b) => {
-                if (a.name > b.name) {
-                  return 1;
-                }
-                if (a.name < b.name) {
-                  return -1;
-                }
-                return 0;
-              })
-              .map((country) => {
-                return <option key={country.id} value={country.name} />;
-              })}
-        </datalist>
-        <button className="add" onClick={(e) => handleCountryAdd(e)}>
-          +
-        </button>
-        <br />
-        <button className="submitBtn" type="submit">
-          Add Activity
-        </button>
-      </form>
-      <div className="countriesCnt">
-        {countriesActivities &&
-          countriesActivities.map((el) => {
-            return (
-              <div className="countryDiv">
-                <span>{el.name} |</span>
-                <button className="removeBtn" onClick={() => removeCountry(el)}>
-                  X
-                </button>
-              </div>
-            );
-          })}
-      </div>
+      ) : addEdit === "add" ? (
+        <div>
+          <img
+            src={Back}
+            onClick={(e) => handleBack()}
+            height="30"
+            width="30"
+            className="backImage"
+          />
+          <form onSubmit={(e) => handleSubmit(e)}>
+            <h1>Add activity</h1>
+            <input
+              type="text"
+              placeholder="Name of the activity..."
+              onChange={(e) => handleName(e)}
+            />
+            <div>
+              <label>
+                <input
+                  type="number"
+                  placeholder="Duration..."
+                  onChange={(e) => handleDuration(e)}
+                />
+                <span className="minutes"> Minutes</span>
+              </label>
+              <br />
+              <select onChange={(e) => handleDifficulty(e)}>
+                <option>Difficulty</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+              <select onChange={(e) => handleSeason(e)}>
+                <option>Season</option>
+                <option>Summer</option>
+                <option>Winter</option>
+                <option>Spring</option>
+                <option>Autumn</option>
+              </select>
+            </div>
+            <input
+              type="text"
+              list="data"
+              id="dataInput"
+              placeholder="Select country..."
+              onChange={(e) => handleCountry(e)}
+            />
+            <datalist id="data">
+              {countries &&
+                countries
+                  .filter((el) => !countriesActivities.includes(el))
+                  .sort((a, b) => {
+                    if (a.name > b.name) {
+                      return 1;
+                    }
+                    if (a.name < b.name) {
+                      return -1;
+                    }
+                    return 0;
+                  })
+                  .map((country) => {
+                    return <option key={country.id} value={country.name} />;
+                  })}
+            </datalist>
+            <button className="add" onClick={(e) => handleCountryAdd(e)}>
+              +
+            </button>
+            <br />
+            <button className="submitBtn" type="submit">
+              Add Activity
+            </button>
+          </form>
+          <div className="countriesCnt">
+            {countriesActivities &&
+              countriesActivities
+                .sort((a, b) => {
+                  if (a.name > b.name) {
+                    return 1;
+                  }
+                  if (a.name < b.name) {
+                    return -1;
+                  }
+                  return 0;
+                })
+                .map((el) => {
+                  return (
+                    <div className="countryDiv">
+                      <span>{el.name} |</span>
+                      <button
+                        className="removeBtn"
+                        onClick={() => removeCountry(el)}
+                      >
+                        X
+                      </button>
+                    </div>
+                  );
+                })}
+          </div>
+        </div>
+      ) : (
+        //edit
+        <div>
+          <img
+            src={Back}
+            onClick={(e) => handleBack()}
+            height="30"
+            width="30"
+            className="backImage"
+          />
+          <form onSubmit={(e) => handleSubmit(e)}>
+            <h1>Modify Activity</h1>
+            <span id="infoEdit">
+              All values with * to the right are the ones assigned now <br />
+              to the selected activity
+            </span>
+            <br />
+            <select onChange={(e) => handleActivityEdit(e)}>
+              <option value={null}>Select activity...</option>
+              {activities &&
+                activities.map((el) => {
+                  return <option key={el.id}>{el.name}</option>;
+                })}
+            </select>
+            <div>
+              <label>
+                <input
+                  type="number"
+                  placeholder="Duration..."
+                  onChange={(e) => handleDuration(e)}
+                />
+                <span className="minutes">
+                  {" "}
+                  Minutes {activityEdit ? `** ${activityEdit.duration}` : null}
+                </span>
+              </label>
+              <br />
+
+              <select onChange={(e) => handleDifficulty(e)}>
+                <option>Difficulty</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+              {activityEdit ? `** ${activityEdit.difficulty}` : null}
+              <select onChange={(e) => handleSeason(e)}>
+                <option>Season</option>
+                <option>Summer</option>
+                <option>Winter</option>
+                <option>Spring</option>
+                <option>Autumn</option>
+              </select>
+              {activityEdit ? `** ${activityEdit.season}` : null}
+            </div>
+            <input
+              type="text"
+              list="data"
+              id="dataInput"
+              placeholder="Select country..."
+              onChange={(e) => handleCountry(e)}
+            />
+            <datalist id="data">
+              {countries &&
+                countries
+                  .filter((el) => !countriesActivities.includes(el))
+                  .sort((a, b) => {
+                    if (a.name > b.name) {
+                      return 1;
+                    }
+                    if (a.name < b.name) {
+                      return -1;
+                    }
+                    return 0;
+                  })
+                  .map((country) => {
+                    return <option key={country.id} value={country.name} />;
+                  })}
+            </datalist>
+            <button className="add" onClick={(e) => handleCountryAdd(e)}>
+              +
+            </button>
+            <br />
+            <button className="submitBtn" type="submit">
+              Edit Activity
+            </button>
+          </form>
+          <div className="countriesCnt">
+            {countriesActivities &&
+              countriesActivities
+                .sort((a, b) => {
+                  if (a.name > b.name) {
+                    return 1;
+                  }
+                  if (a.name < b.name) {
+                    return -1;
+                  }
+                  return 0;
+                })
+                .map((el) => {
+                  return (
+                    <div className="countryDiv">
+                      <span>{el.name} |</span>
+                      <button
+                        className="removeBtn"
+                        onClick={() => removeCountry(el)}
+                      >
+                        X
+                      </button>
+                    </div>
+                  );
+                })}
+          </div>
+        </div>
+      )}
     </StyledForm>
   );
 }

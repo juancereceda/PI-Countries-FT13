@@ -16,6 +16,8 @@ const Div = styled.div`
     text-decoration: none;
     &:hover {
       color: gray;
+      transform: scale(1.15);
+      transition: 0.5s;
     }
   }
 `;

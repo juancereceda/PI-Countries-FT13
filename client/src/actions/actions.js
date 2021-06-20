@@ -65,3 +65,13 @@ export function setAscDes(type) {
     dispatch({ type: SET_ASC_DES, payload: type });
   };
 }
+
+export function updateActivity(name, difficulty, duration, season, countries) {
+  axios.put("http://localhost:3001/activities", {
+    name,
+    difficulty,
+    duration,
+    season,
+    countries,
+  });
+}

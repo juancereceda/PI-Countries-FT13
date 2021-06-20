@@ -28,6 +28,10 @@ const Div = styled.div`
     font-size: 10px;
     color: gray;
     box-shadow: 10px 10px 5px grey;
+    &:hover {
+      transform: scale(1.05);
+      transition: 0.5s;
+    }
     img {
       border: 2px solid #9fe2bf;
       width: 300px;

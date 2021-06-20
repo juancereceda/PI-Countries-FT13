@@ -8,7 +8,7 @@ fetch("https://restcountries.eu/rest/v2/all")
     r.forEach((el) => {
       let country = {
         id: el.alpha3Code,
-        name: el.name,
+        name: el.name === "Åland Islands" ? "Aland Islands" : el.name,
         flag: el.flag,
         continent: el.region,
         area: el.area,
