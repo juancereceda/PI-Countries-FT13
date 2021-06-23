@@ -16,5 +16,3 @@ module.exports = router;
 
 // /countries
 // activities
-
-//localhost:3001/activities

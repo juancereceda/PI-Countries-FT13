@@ -8,7 +8,7 @@ export const SET_ORDER = "SET_ORDER";
 export const SET_ASC_DES = "SET_ASC_DES";
 
 export function getCountries(name, continent, activity) {
-  let route = "http://localhost:3001/countries?"; 
+  let route = "/countries?";
   if (name) {
     route += `name=${name}&`;
   }
@@ -18,8 +18,8 @@ export function getCountries(name, continent, activity) {
   return async function (dispatch) {
     let result = await axios.get(route);
     dispatch({
-      type: GET_COUNTRIES, 
-      payload: !result.data 
+      type: GET_COUNTRIES,
+      payload: !result.data
         ? []
         : activity
         ? result.data.filter((el) =>
@@ -32,20 +32,20 @@ export function getCountries(name, continent, activity) {
 
 export function getActivities() {
   return async function (dispatch) {
-    let result = await axios.get("http://localhost:3001/activities");
+    let result = await axios.get("/activities");
     dispatch({ type: GET_ACTIVITIES, payload: result.data });
   };
 }
 
 export function getCountryDetail(id) {
   return async function (dispatch) {
-    let result = await axios.get(`http://localhost:3001/countries/${id}`);
+    let result = await axios.get(`/countries/${id}`);
     dispatch({ type: GET_COUNTRY_DETAIL, payload: result.data });
   };
 }
 
 export function addActivity(name, difficulty, duration, season, countries) {
-  axios.post("http://localhost:3001/activities", {
+  axios.post("/activities", {
     name: name,
     difficulty: difficulty,
     duration: duration,
@@ -67,7 +67,7 @@ export function setAscDes(type) {
 }
 
 export function updateActivity(name, difficulty, duration, season, countries) {
-  axios.put("http://localhost:3001/activities", {
+  axios.put("/activities", {
     name,
     difficulty,
     duration,
