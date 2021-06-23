@@ -11,19 +11,22 @@ import Search from "../../../img/search.png";
 
 function SearchForm() {
   const dispatch = useDispatch();
-  const [name, setName] = useState(null);
-  const [continent, setContinent] = useState(null);
-  const [order, setOrd] = useState(null);
-  const [asc, setAsc] = useState(true);
-  const [activity, setActivity] = useState(null);
+  const [name, setName] = useState(null); // input tipo texto
+  const [continent, setContinent] = useState(null); // select
+  const [order, setOrd] = useState(null); // select
+  const [asc, setAsc] = useState(true); //select
+  const [activity, setActivity] = useState(null); // select
   const activities = useSelector((state) => state.activities);
 
   useEffect(() => {
     dispatch(getCountries(name, continent, activity));
     dispatch(getActivities());
+  }, [name, continent, activity]);
+  
+  useEffect(() => {
     dispatch(setOrder(order));
     dispatch(setAscDes(asc));
-  }, [name, continent, activity, order, asc]);
+  }, [order, asc])
 
   function handleNameChange(event) {
     let name = event.target.value;

@@ -2,32 +2,25 @@ import styled from "styled-components";
 
 const div = styled.div`
   margin-top: 150px;
-  margin-left: 50px;
+  margin-left: 120px;
   padding-bottom: 80px;
   margin-bottom: 50px;
   width: 500px;
-  border-radius: 15px;
   height: fit-content;
   display: flex;
   flex-direction: column;
   align-items: center;
+
   .addEditCnt {
     display: flex;
     justify-content: space-around;
     margin-top: 100px;
-  }
-
-  .addEditButton {
-    width: 70px;
-    height: 40px;
-    color: rgb(40, 40, 40);
-    font-family: "Questrial", sans-serif;
-    font-weight: bold;
-    background-color: #9fe2bf;
-    border: 1px solid #686868;
-    border-radius: 5px;
-    &:hover {
-      transform: scale(1.1);
+    margin-right: 50px;
+    img {
+      &:hover {
+        transform: scale(1.1);
+        transition: 0.3s;
+      }
     }
   }
 
@@ -36,8 +29,11 @@ const div = styled.div`
   select {
     font-family: "Questrial", sans-serif;
     margin-top: 10px;
+    margin-right: 3px;
     border: 1px solid #9fe2bf;
     color: gray;
+    height: 28px;
+    width: 140px;
   }
 
   .add {
@@ -46,12 +42,14 @@ const div = styled.div`
     background-color: #9fe2bf;
     color: gray;
     border: 1px solid gray;
+    height: 32px;
+    width: 32px;
     &:hover {
       background-color: #7eb799;
     }
   }
   .minutes {
-    font-size: 13px;
+    font-size: 15px;
   }
   .submitBtn {
     margin-top: 10px;
@@ -59,7 +57,7 @@ const div = styled.div`
     background-color: #9fe2bf;
     border: 1px solid gray;
     height: 30px;
-    border-radius: 8px;
+    border-radius: 3px;
     &:hover {
       background-color: #7eb799;
     }
@@ -67,6 +65,9 @@ const div = styled.div`
 
   form {
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   #infoEdit {
@@ -83,6 +84,7 @@ const div = styled.div`
     margin-top: 20px;
     display: flex;
     justify-content: space-evenly;
+    width: 500px;
     flex-wrap: wrap;
     .countryDiv {
       margin-bottom: 5px;
