@@ -48,6 +48,5 @@
   },
   "devDependencies": {
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.2"
-  },
-  "proxi": "http://localhost:3001"
+  }
 }
