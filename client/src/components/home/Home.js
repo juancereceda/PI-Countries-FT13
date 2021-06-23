@@ -6,8 +6,6 @@ import Pagination from "./Pagination/Pagination";
 import LoadingCountries from "./LoadingHome/LoadingHome";
 import SearchForm from "./SearchForm/SearchForm";
 import StyledHome from "./styles";
-import ScrollToTop from "./ScrollToTop/ScrollToTop";
-import LoadingDetail from "../detail/LoadingDetail/LoadingDetail";
 
 export function Home() {
   const dispatch = useDispatch();
@@ -56,14 +54,10 @@ export function Home() {
     <StyledHome>
       <SearchForm />
       {loading ? (
-        <div className="loaders">
-          <LoadingDetail />
-          <LoadingCountries countriesPerPage={countriesPerPage} />
-        </div>
+        <LoadingCountries countriesPerPage={countriesPerPage} />
       ) : (
         <div className="resultsContainer">
           <Countries countries={currentCountries} />
-          <ScrollToTop />
           <Pagination
             countriesPerPage={countriesPerPage}
             totalCountries={countries.length}

@@ -11,8 +11,7 @@ const Div = styled.div`
   justify-content: center;
   align-items: center;
   border: 2px solid #9fe2bf;
-  border-radius: 10px;
-  box-shadow: 10px 10px 5px grey;
+  border-radius: 20px;
   #nombre {
     text-align: center;
   }
@@ -31,7 +30,7 @@ const Div = styled.div`
     margin-bottom: -10px;
   }
   &:hover {
-    transform: scale(1.05);
+    background-color: rgba(200, 200, 200, 0.8);
   }
   .cross {
     margin: 2px;
