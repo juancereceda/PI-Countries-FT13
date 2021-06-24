@@ -26,7 +26,7 @@ function Contact() {
         </div>
         <div className="contactInfo tag">
           <img src={LinkedIn} height="30" width="30" />
-          <a href="http://www.linkedin.com/in/juancereceda">
+          <a href="https://www.linkedin.com/in/juancereceda">
             <h4>Juan Martín Cereceda</h4>
           </a>
         </div>

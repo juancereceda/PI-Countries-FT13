@@ -31,6 +31,24 @@ function NewActivity() {
     dispatch(getActivities());
   }, []);
 
+  useEffect(() => {
+    console.log("name ", name);
+    console.log("duration ", duration);
+    console.log("season ", season);
+    console.log("country ", country);
+    console.log("difficulty ", difficulty);
+    console.log("countries activities ", countriesActivities);
+    console.log("activityEdit ", activityEdit);
+  }, [
+    name,
+    duration,
+    season,
+    country,
+    difficulty,
+    countriesActivities,
+    activityEdit,
+  ]);
+
   // Add
 
   function handleCountry(event) {

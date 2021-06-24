@@ -15,7 +15,6 @@ server.get("/", async (req, res) => {
 
 server.put("/", async (req, res) => {
   try {
-    console.log("here");
     const { name, difficulty, duration, season, countries } = req.body;
     const activity = await Activity.findOne({
       where: {

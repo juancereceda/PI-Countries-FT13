@@ -3,6 +3,7 @@ import styled from "styled-components";
 const Div = styled.div`
   margin-left: 25px;
   margin-right: 25px;
+  margin-bottom: 10px;
   width: 200px;
   height: 300px;
   background-color: #e6e6e6d0;
