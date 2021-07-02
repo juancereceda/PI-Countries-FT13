@@ -5,7 +5,7 @@ const div = styled.div`
   margin-left: 120px;
   padding-bottom: 80px;
   margin-bottom: 50px;
-  width: 500px;
+  width: fit-content;
   height: fit-content;
   display: flex;
   flex-direction: column;
@@ -22,6 +22,10 @@ const div = styled.div`
         transition: 0.3s;
       }
     }
+  }
+
+  .cardContainer {
+    display: flex;
   }
 
   input,
@@ -68,6 +72,7 @@ const div = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    width: 500px;
   }
 
   #infoEdit {

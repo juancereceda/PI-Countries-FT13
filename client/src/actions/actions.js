@@ -8,7 +8,7 @@ export const SET_ORDER = "SET_ORDER";
 export const SET_ASC_DES = "SET_ASC_DES";
 
 export function getCountries(name, continent, activity) {
-  let route = "https://jmcereceda-countries-server.herokuapp.com/countries?";
+  let route = "countries?";
   if (name) {
     route += `name=${name}&`;
   }
@@ -32,18 +32,14 @@ export function getCountries(name, continent, activity) {
 
 export function getActivities() {
   return async function (dispatch) {
-    let result = await axios.get(
-      "https://jmcereceda-countries-server.herokuapp.com/activities"
-    );
+    let result = await axios.get("activities");
     dispatch({ type: GET_ACTIVITIES, payload: result.data });
   };
 }
 
 export function getCountryDetail(id) {
   return async function (dispatch) {
-    let result = await axios.get(
-      `https://jmcereceda-countries-server.herokuapp.com/countries/${id}`
-    );
+    let result = await axios.get(`countries/${id}`);
     dispatch({ type: GET_COUNTRY_DETAIL, payload: result.data });
   };
 }
@@ -61,7 +57,7 @@ export function setAscDes(type) {
 }
 
 export function addActivity(name, difficulty, duration, season, countries) {
-  axios.post("https://jmcereceda-countries-server.herokuapp.com/activities", {
+  axios.post("activities", {
     name,
     difficulty,
     duration,
@@ -71,7 +67,7 @@ export function addActivity(name, difficulty, duration, season, countries) {
 }
 
 export function updateActivity(name, difficulty, duration, season, countries) {
-  axios.put("https://jmcereceda-countries-server.herokuapp.com/activities", {
+  axios.put("activities", {
     name,
     difficulty,
     duration,

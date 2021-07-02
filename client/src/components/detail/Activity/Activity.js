@@ -2,13 +2,14 @@ import React from "react";
 import StyledActivity from "./styles";
 import Clock from "../../../img/clock.png";
 
-function Activity({ name, duration, season, difficulty }) {
+function Activity({ name, duration, season, difficulty, edit }) {
   let stars = [];
   for (let i = 1; i <= difficulty; i++) {
     stars.push(i);
   }
   return (
     <StyledActivity>
+      {edit ? <span>These are current values</span> : null}
       <h1 id="nombre">{name}</h1>
       <div className="iconedProp">
         <img src={Clock} width="15" height="15" />
